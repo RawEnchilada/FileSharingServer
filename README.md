@@ -4,7 +4,7 @@ This is a server side rendered page based on express and ejs, which let's you pi
 Files are readonly, uploaded files(coming soon) go to the upload folder beside index.js.
 
 ### Configuration:
-First run `npm install` to install dependencies.
+
 The server uses a config.json file to set parameters like the shared folder and server port.
 
 Node.js 15.0.0 or newer required.

@@ -1,4 +1,9 @@
-<%- include("head",{title:locals.title}) %>
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="/style.css"/>
+    <title><%=locals.title%></title>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
 <body>
     <div id="listView">
         <% locals.files.forEach(f => { %>
@@ -9,5 +14,5 @@
         <% }); %>
     </div>
 
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 </body>

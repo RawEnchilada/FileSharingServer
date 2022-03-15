@@ -33,10 +33,10 @@ module.exports = (app)=>{
     });
 
     app.use((req,res,next)=>{
-        const url = req.originalUrl.replaceAll("%C2%B7",".");
+        const url = decodeURI(req.originalUrl);
         
         if(!url.match(/\.\.+/)){
-            if(url.match(/[^/]+\.[^./]+$/)){
+            if(!fs.lstatSync(path+url).isDirectory()){
                 res.sendFile(path+url);
             }
             else{
@@ -46,25 +46,28 @@ module.exports = (app)=>{
                             name:"..",
                             type:"folder",
                             url:plib.dirname(url)
-                        })
+                        });
+                        res.locals.title = plib.basename(url);
                     }
-                    res.locals.title = plib.basename(plib.dirname(url));
                     let files = fs.readdirSync(path+url);
                     for(f of files){
+                        if(f[0] == ".")continue;
                         res.locals.files.push({
                             name:f,
-                            type:f.match(/[^/]+\.[^./]+$/)?"file":"folder",
-                            url:(url+(url=="/"?"":"/")+f).replaceAll(".","·")
+                            type:fs.lstatSync(path+url+(url=="/"?"":"/")+f).isDirectory()?"folder":"file",
+                            url:encodeURI(url+(url=="/"?"":"/")+f)
                         });
                     }
                     next();
                 }
                 catch{
+                    console.log("Path not found");
                     res.render("error",{code:404});
                 }
             }
         }
         else{
+            console.log("Double dot detected");
             res.render("error",{code:404});
         }
 

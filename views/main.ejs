@@ -1,0 +1,13 @@
+<%- include("head",{title:locals.title}) %>
+<body>
+    <div id="listView">
+        <% locals.files.forEach(f => { %>
+            <a class="element" href="<%=f.url%>">
+                <i data-feather="<%=f.type%>"></i>
+                <div><%=f.name%></div>
+            </a>
+        <% }); %>
+    </div>
+
+    <script src="script.js"></script>
+</body>

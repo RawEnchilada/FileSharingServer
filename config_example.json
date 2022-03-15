@@ -1,0 +1,4 @@
+{
+    "serverPort":4300,
+    "sharePath":"/full/path/sharedFolder"
+}
